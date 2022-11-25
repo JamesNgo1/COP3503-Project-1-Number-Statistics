@@ -51,32 +51,55 @@ public class Project1_n01471175 {
 	
 	public static void primes(int[] primerino) 
 	{
+		//Recycle section method to order and find the max elements of the entire int array
 		Arrays.sort(primerino);// sort array in order 
-		int count = 0;// declaration of count of primes
-		
-		//used reference
-		for(int i = primerino[0]; i <= primerino[primerino.length - 1]; i++) // loop declare 
+		int max = primerino[0]; // declare initialization of maximum array default
+		for(int i = 0; i < primerino.length;i++)// for loop checks each element
 		{
-			//declaration of variables
-			int index = i;
-			int resulto = 2;
-			int increase = 0;
-			while ( resulto <= (index  / 2 )) //while condition loop
+			if(primerino[i] > max) //checks if the condition is true
 			{
-				if((index  % resulto) == 0) //if condition met
-				{
-					increase++;//increment and break
-					break;
-				}
-				resulto++;// adds one till meet if statement
-			}
-			if(increase == 0 && i != 1) // condition
-			{
-				count++;// increment if met 
+				max = primerino[i];//if met the condition it is passed on as "max" variable
 			}
 		}
+		int primMax = max; //declare the max element in the int array
 		
-		System.out.println("Number of Prime(s) in list: " + count); //display result of prime count
+		
+		//creation of boolean array with size of max element plus one
+		int news = primMax + 1;
+		Boolean[] primeCheck = new Boolean[news];
+        for (int i = 0; i < news; i++)
+        {
+            primeCheck[i] = true; //declare all number from element 0 to max number of array
+        }
+ 
+        //declare first two elements as false
+        primeCheck[0] = false;
+        primeCheck[1] = false;
+        
+        for (int test = 2; test * test <= primMax; test++)
+        {
+            if (primeCheck[test] == true)
+            {
+ 
+                // The for loop reassign correct prime check of each element
+                for (int i = test * 2; i <= primMax; i += test)
+                {
+                    primeCheck[i] = false;
+                }
+            }
+        }
+ 
+        
+        // Counter variable and for loop to count number of primes with the condition statement
+        int counter = 0;
+        for (int i = 0; i < primerino.length; i++)
+        {
+            if (primeCheck[primerino[i]])
+            {
+                counter += 1;
+            }
+        }
+		System.out.println("Number of Prime(s) in list: " + counter); //display result of prime count
 	}
 	
 	
